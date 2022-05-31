@@ -87,6 +87,11 @@ class FilmSession extends Film
         return $this->timeEndFilmSession;
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     private function checkTicketsAvail(): bool
     {
         return $this->ticketsCount <= 0;
@@ -102,13 +107,5 @@ class FilmSession extends Film
         $endSessionTime = $startSessionTime->add(new \DateInterval('PT' . $this->getFilmLength() . 'M'));
 
         return $endSessionTime->format('H:i');
-    }
-
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return $this->id;
     }
 }
