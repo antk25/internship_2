@@ -11,7 +11,7 @@ class ClientPhone
      */
     public function __construct(string $phone)
     {
-        $this->phone = $this->validatePhone($phone);
+        $this->phone = self::assertThatPhoneIsValid($phone);
     }
 
     public function getValue(): string
@@ -27,7 +27,7 @@ class ClientPhone
     /**
      * @throws \Exception
      */
-    private function validatePhone(mixed $phone): mixed
+    private static function assertThatPhoneIsValid(string $phone): string
     {
         if (!preg_match('/\+?[78][-(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/m', $phone)) {
             throw new \Exception('Invalid phone format');
