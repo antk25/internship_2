@@ -75,12 +75,12 @@ class FilmSession extends Film
         return $this->dateFilmSession;
     }
 
-    public function getTimeSessionStart(): TimeStartFilmSession
+    public function getTimeStartFilmSession(): TimeStartFilmSession
     {
         return $this->timeStartFilmSession;
     }
 
-    public function getTimeSessionEnd(): string
+    public function getTimeEndFilmSession(): string
     {
         return $this->timeEndFilmSession;
     }
