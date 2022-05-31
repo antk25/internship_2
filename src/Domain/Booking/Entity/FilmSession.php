@@ -10,6 +10,7 @@ class FilmSession extends Film
 {
     private string $timeEndFilmSession;
     private TicketsCollection $ticketsCollection;
+    private string $id;
 
     /**
      * @throws \Exception
@@ -25,6 +26,7 @@ class FilmSession extends Film
 
         $this->timeEndFilmSession = $this->calcTimeEndFilmSession();
         $this->ticketsCollection = new TicketsCollection();
+        $this->id = uniqid();
     }
 
     /**
@@ -100,5 +102,13 @@ class FilmSession extends Film
         $endSessionTime = $startSessionTime->add(new \DateInterval('PT' . $this->getFilmLength() . 'M'));
 
         return $endSessionTime->format('H:i');
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
     }
 }
