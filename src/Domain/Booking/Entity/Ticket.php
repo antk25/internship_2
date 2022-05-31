@@ -9,18 +9,18 @@ class Ticket
     private string $filmName;
     private string $clientName;
     private string $clientPhone;
-    private string $dateSession;
-    private string $startSession;
-    private string $endSession;
+    private string $dateFilmSession;
+    private string $timeSessionStart;
+    private string $timeSessionEnd;
 
     public function __construct(Client $client, FilmSession $filmSession)
     {
         $this->clientName = $client->getName();
         $this->clientPhone = $client->getPhone();
         $this->filmName = $filmSession->getFilmName();
-        $this->dateSession = $filmSession->getDateSession();
-        $this->startSession = $filmSession->getTimeSessionStart();
-        $this->endSession = $filmSession->getTimeSessionEnd();
+        $this->dateFilmSession = $filmSession->getDateFilmSession();
+        $this->timeSessionStart = $filmSession->getTimeSessionStart();
+        $this->timeSessionEnd = $filmSession->getTimeSessionEnd();
     }
 
     /**
@@ -32,9 +32,9 @@ class Ticket
             'Имя' => $this->clientName,
             'Телефон' => $this->clientPhone,
             'Фильм' => $this->filmName,
-            'Дата' => $this->dateSession,
-            'Время начала сеанса' => $this->startSession,
-            'Время окончания сеанса' => $this->endSession,
+            'Дата' => $this->dateFilmSession,
+            'Время начала сеанса' => $this->timeSessionStart,
+            'Время окончания сеанса' => $this->timeSessionEnd,
         ];
     }
 }

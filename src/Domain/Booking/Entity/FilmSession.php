@@ -63,14 +63,14 @@ class FilmSession extends Film
         return [
             'Фильм' => $this->getFilmName(),
             'Продолжительность' => $this->getFilmLength(),
-            'Дата' => $this->getDateSession(),
+            'Дата' => $this->getDateFilmSession(),
             'Время начала сеанса' => $this->getTimeSessionStart(),
             'Время окончания сеанса' => $this->getTimeSessionEnd(),
             'Кол-во свободных мест' => $this->ticketsCount,
         ];
     }
 
-    public function getDateSession(): DateFilmSession
+    public function getDateFilmSession(): DateFilmSession
     {
         return $this->dateFilmSession;
     }
@@ -87,7 +87,7 @@ class FilmSession extends Film
 
     private function checkTicketsAvail(): bool
     {
-       return $this->ticketsCount <= 0;
+        return $this->ticketsCount <= 0;
     }
 
     /**
