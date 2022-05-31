@@ -15,8 +15,8 @@ class TicketService
      */
     public function createTicket(FilmSession $filmSession, NewClientDto $newClientDto): void
     {
-       $client = new Client(new ClientName($newClientDto->name), new ClientPhone($newClientDto->phone));
+        $client = new Client(new ClientName($newClientDto->name), new ClientPhone($newClientDto->phone));
 
-       $filmSession->bookTicket($client);
+        $filmSession->bookTicket($client);
     }
 }

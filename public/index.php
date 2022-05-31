@@ -1,6 +1,7 @@
 <?php
 
 use App\Domain\Booking\Entity\Client;
+use App\Domain\Booking\Entity\Factory\CreateNewClientDtoFactory;
 use App\Domain\Booking\Entity\FilmSession;
 use App\Domain\Booking\Entity\TransferObject\FilmSessionDto;
 use App\Domain\Booking\Entity\TransferObject\NewClientDto;
@@ -31,7 +32,13 @@ $filmSession1 = [
     'numberOfSeats' => 10,
 ];
 
-$dto = new NewClientDto();
+$dtoClientFactory = new CreateNewClientDtoFactory();
+
+$dtoUser1 = $dtoClientFactory->createFromArray($user1);
+
+$dtoUser2 = $dtoClientFactory->createFromArray($user2);
+
+
 $dtoFilmSession = new FilmSessionDto();
 
 $dtoFilmSession1 = $dtoFilmSession::createFromArray($filmSession1);
@@ -44,9 +51,6 @@ try {
     echo $e->getMessage(), "\n";
 }
 
-$dtoUser1 = $dto::createFromArray($user1);
-
-$dtoUser2 = $dto::createFromArray($user2);
 
 $ticketService = new TicketService();
 
