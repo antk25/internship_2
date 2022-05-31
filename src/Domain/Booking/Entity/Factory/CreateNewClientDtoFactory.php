@@ -8,7 +8,6 @@ class CreateNewClientDtoFactory
 {
     /**
      * @param array<mixed> $data
-     *
      */
     public function createFromArray(array $data): NewClientDto
     {

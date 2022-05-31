@@ -1,14 +1,7 @@
 <?php
 
-use App\Domain\Booking\Entity\Client;
+use App\Domain\Booking\Entity\Factory\CreateFilmSessionDtoFactory;
 use App\Domain\Booking\Entity\Factory\CreateNewClientDtoFactory;
-use App\Domain\Booking\Entity\FilmSession;
-use App\Domain\Booking\Entity\TransferObject\FilmSessionDto;
-use App\Domain\Booking\Entity\TransferObject\NewClientDto;
-use App\Domain\Booking\Entity\ValueObject\ClientName;
-use App\Domain\Booking\Entity\ValueObject\ClientPhone;
-use App\Domain\Booking\Entity\ValueObject\DateFilmSession;
-use App\Domain\Booking\Entity\ValueObject\TimeStartFilmSession;
 use App\Domain\Booking\Service\FilmSessionService;
 use App\Domain\Booking\Service\TicketService;
 
@@ -32,16 +25,13 @@ $filmSession1 = [
     'numberOfSeats' => 10,
 ];
 
+$dtoFilmSessionFactory = new CreateFilmSessionDtoFactory();
 $dtoClientFactory = new CreateNewClientDtoFactory();
 
 $dtoUser1 = $dtoClientFactory->createFromArray($user1);
-
 $dtoUser2 = $dtoClientFactory->createFromArray($user2);
 
-
-$dtoFilmSession = new FilmSessionDto();
-
-$dtoFilmSession1 = $dtoFilmSession::createFromArray($filmSession1);
+$dtoFilmSession1 = $dtoFilmSessionFactory->createFromArray($filmSession1);
 
 $filmSessionService = new FilmSessionService();
 
@@ -50,7 +40,6 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage(), "\n";
 }
-
 
 $ticketService = new TicketService();
 
