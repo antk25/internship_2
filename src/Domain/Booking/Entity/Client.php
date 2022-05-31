@@ -8,17 +8,13 @@ use App\Domain\Booking\Entity\ValueObject\ClientPhone;
 class Client
 {
     private string $id;
-    private ClientName $name;
-    private ClientPhone $phone;
 
     /**
      * @throws \Exception
      */
-    public function __construct(ClientName $name, ClientPhone $phone)
+    public function __construct(private ClientName $name, private ClientPhone $phone)
     {
-       $this->name = $name;
-       $this->phone = $phone;
-       $this->id = uniqid();
+        $this->id = uniqid();
     }
 
     public function getName(): ClientName

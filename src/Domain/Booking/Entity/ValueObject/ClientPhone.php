@@ -14,18 +14,6 @@ class ClientPhone
         $this->phone = $this->validatePhone($phone);
     }
 
-    /**
-     * @throws \Exception
-     */
-    private function validatePhone($phone)
-    {
-        if (!preg_match('/\+?[78][-(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/m', $phone)) {
-            throw new \Exception('Invalid phone format');
-        }
-
-        return $phone;
-    }
-
     public function getValue(): string
     {
         return $this->phone;
@@ -36,4 +24,15 @@ class ClientPhone
         return $this->getValue();
     }
 
+    /**
+     * @throws \Exception
+     */
+    private function validatePhone(mixed $phone): mixed
+    {
+        if (!preg_match('/\+?[78][-(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/m', $phone)) {
+            throw new \Exception('Invalid phone format');
+        }
+
+        return $phone;
+    }
 }

@@ -14,17 +14,6 @@ class ClientName
         $this->name = $this->validateName($name);
     }
 
-    /**
-     * @throws \Exception
-     */
-    private function validateName($name)
-    {
-        if (!preg_match('/[A-zА-я-]{3,15}$/m', $name)) {
-            throw new \Exception('Invalid name');
-        }
-        return $name;
-    }
-
     public function getValue(): string
     {
         return $this->name;
@@ -35,4 +24,15 @@ class ClientName
         return $this->getValue();
     }
 
+    /**
+     * @throws \Exception
+     */
+    private function validateName(mixed $name): mixed
+    {
+        if (!preg_match('/[A-zА-я-]{3,15}$/m', $name)) {
+            throw new \Exception('Invalid name');
+        }
+
+        return $name;
+    }
 }

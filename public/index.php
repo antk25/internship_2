@@ -1,34 +1,33 @@
 <?php
 
-use App\Domain\Booking\Entity\FilmSession;
 use App\Domain\Booking\Entity\Client;
+use App\Domain\Booking\Entity\FilmSession;
 use App\Domain\Booking\Entity\TransferObject\FilmSessionDto;
 use App\Domain\Booking\Entity\TransferObject\NewClientDto;
-use App\Domain\Booking\Entity\ValueObject\DateSession;
-use App\Domain\Booking\Entity\ValueObject\ClientPhone;
 use App\Domain\Booking\Entity\ValueObject\ClientName;
-use App\Domain\Booking\Entity\ValueObject\TimeSession;
+use App\Domain\Booking\Entity\ValueObject\ClientPhone;
+use App\Domain\Booking\Entity\ValueObject\DateFilmSession;
+use App\Domain\Booking\Entity\ValueObject\TimeStartFilmSession;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $user1 = [
     'name' => 'John',
-    'phone' => '+79155683810'
+    'phone' => '+79155683810',
 ];
 
 $user2 = [
     'name' => 'Luke',
-    'phone' => '89155583815'
+    'phone' => '89155583815',
 ];
 
 $filmSession1 = [
- 'film' => 'Venom',
- 'filmLength' => 109,
- 'date' => '22.05.2022',
- 'time' => '20:15',
- 'numberOfSeats' => 10
+    'film' => 'Venom',
+    'filmLength' => 109,
+    'date' => '22.05.2022',
+    'time' => '20:15',
+    'numberOfSeats' => 10,
 ];
-
 
 $dto = new NewClientDto();
 $dtoFilmSession = new FilmSessionDto();
@@ -36,11 +35,13 @@ $dtoFilmSession = new FilmSessionDto();
 $dtoFilmSession1 = $dtoFilmSession::createFromArray($filmSession1);
 
 try {
-        $filmSession1 = new FilmSession($dtoFilmSession1->filmName,
-        $dtoFilmSession1->filmLength,
-        new DateSession($dtoFilmSession1->dateFilmSession),
-        new TimeSession($dtoFilmSession1->startTimeFilmSession),
-        $dtoFilmSession1->ticketsCount);
+        $filmSession1 = new FilmSession(
+            $dtoFilmSession1->filmName,
+            $dtoFilmSession1->filmLength,
+            new DateFilmSession($dtoFilmSession1->dateFilmSession),
+            new TimeStartFilmSession($dtoFilmSession1->startTimeFilmSession),
+            $dtoFilmSession1->ticketsCount
+        );
 } catch (Exception $e) {
     echo $e->getMessage(), "\n";
 }

@@ -2,10 +2,6 @@
 
 namespace App\Domain\Booking\Entity;
 
-use App\Domain\Booking\Entity\Client;
-use App\Domain\Booking\Entity\FilmSession;
-use JetBrains\PhpStorm\ArrayShape;
-
 class Ticket
 {
     private Client $client;
@@ -27,6 +23,9 @@ class Ticket
         $this->endSession = $filmSession->getTimeSessionEnd();
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getTicketInfo(): array
     {
         return [
@@ -36,6 +35,6 @@ class Ticket
             'Дата' => $this->dateSession,
             'Время начала сеанса' => $this->startSession,
             'Время окончания сеанса' => $this->endSession,
-       ];
+        ];
     }
 }

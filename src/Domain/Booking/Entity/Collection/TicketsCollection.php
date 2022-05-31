@@ -1,20 +1,26 @@
 <?php
 
-namespace App\Domain\Booking\Entity;
+namespace App\Domain\Booking\Entity\Collection;
+
+use App\Domain\Booking\Entity\Client;
+use App\Domain\Booking\Entity\FilmSession;
+use App\Domain\Booking\Entity\Ticket;
 
 class TicketsCollection implements \Iterator
 {
     private int $position;
-    private array $tickets = [];
 
-    public function addBookTicket(Client $client, FilmSession $filmSession): void
-    {
-        $this->tickets[] = new Ticket($client, $filmSession);
-    }
+    /** @var array<Ticket> */
+    private array $tickets = [];
 
     public function __construct()
     {
         $this->position = 0;
+    }
+
+    public function addBookTicket(Client $client, FilmSession $filmSession): void
+    {
+        $this->tickets[] = new Ticket($client, $filmSession);
     }
 
     public function current(): Ticket
