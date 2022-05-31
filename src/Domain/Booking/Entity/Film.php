@@ -4,7 +4,7 @@ namespace App\Domain\Booking\Entity;
 
 abstract class Film
 {
-    public function __construct(private string $filmName, private int $filmLength)
+    public function __construct(private readonly string $filmName, private readonly int $filmLength)
     {
     }
 

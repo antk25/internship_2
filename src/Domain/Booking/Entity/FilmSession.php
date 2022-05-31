@@ -8,10 +8,7 @@ use App\Domain\Booking\Entity\ValueObject\TimeStartFilmSession;
 
 class FilmSession extends Film
 {
-    private DateFilmSession $dateSession;
-    private TimeStartFilmSession $timeSessionStart;
-    private int $ticketsCount;
-    private string $timeSessionEnd;
+    private string $timeEndFilmSession;
     private TicketsCollection $ticketsCollection;
 
     /**
@@ -20,16 +17,13 @@ class FilmSession extends Film
     public function __construct(
         string $filmName,
         int $filmLength,
-        DateFilmSession $dateSession,
-        TimeStartFilmSession $timeSessionStart,
-        int $ticketsCount
-    )
-    {
+        private readonly DateFilmSession $dateFilmSession,
+        private readonly TimeStartFilmSession $timeStartFilmSession,
+        private int $ticketsCount,
+    ) {
         parent::__construct($filmName, $filmLength);
-        $this->dateSession = $dateSession;
-        $this->timeSessionStart = $timeSessionStart;
-        $this->ticketsCount = $ticketsCount;
-        $this->timeSessionEnd = $this->calcEndSessionTime();
+
+        $this->timeEndFilmSession = $this->calcEndSessionTime();
         $this->ticketsCollection = new TicketsCollection();
     }
 
@@ -47,6 +41,9 @@ class FilmSession extends Film
         $this->ticketsCount--;
     }
 
+    /**
+     * @return array<Ticket>
+     */
     public function getAllBookedTickets(): array
     {
         $bookedTickets = [];
@@ -58,6 +55,9 @@ class FilmSession extends Film
         return $bookedTickets;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getInfoAboutFilmSession(): array
     {
         return [
@@ -72,17 +72,17 @@ class FilmSession extends Film
 
     public function getDateSession(): DateFilmSession
     {
-        return $this->dateSession;
+        return $this->dateFilmSession;
     }
 
     public function getTimeSessionStart(): TimeStartFilmSession
     {
-        return $this->timeSessionStart;
+        return $this->timeStartFilmSession;
     }
 
     public function getTimeSessionEnd(): string
     {
-        return $this->timeSessionEnd;
+        return $this->timeEndFilmSession;
     }
 
     /**
@@ -90,7 +90,7 @@ class FilmSession extends Film
      */
     private function calcEndSessionTime(): string
     {
-        $startTime = \DateTime::createFromFormat('H:i', $this->timeSessionStart);
+        $startTime = \DateTime::createFromFormat('H:i', $this->timeStartFilmSession);
 
         $endSessionTime = $startTime->add(new \DateInterval('PT' . $this->getFilmLength() . 'M'));
 
