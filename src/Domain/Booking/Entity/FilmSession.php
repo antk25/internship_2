@@ -32,7 +32,7 @@ class FilmSession extends Film
      */
     public function bookTicket(Client $client): void
     {
-        if ($this->ticketsCount < 1) {
+        if ($this->checkTicketsAvail()) {
             throw new \Exception('No more tickets');
         }
 
@@ -83,6 +83,11 @@ class FilmSession extends Film
     public function getTimeSessionEnd(): string
     {
         return $this->timeEndFilmSession;
+    }
+
+    private function checkTicketsAvail(): bool
+    {
+       return $this->ticketsCount <= 0;
     }
 
     /**
