@@ -7,14 +7,11 @@ use App\Domain\Booking\Entity\ValueObject\ClientPhone;
 
 class Client
 {
-    private string $id;
-
     /**
      * @throws \Exception
      */
     public function __construct(private readonly ClientName $name, private readonly ClientPhone $phone)
     {
-        $this->id = uniqid();
     }
 
     public function getName(): ClientName
@@ -25,10 +22,5 @@ class Client
     public function getPhone(): ClientPhone
     {
         return $this->phone;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 }
