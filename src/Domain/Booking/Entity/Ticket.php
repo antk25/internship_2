@@ -2,8 +2,12 @@
 
 namespace App\Domain\Booking\Entity;
 
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+
 class Ticket
 {
+    private UuidInterface $id;
     private Client $client;
     private FilmSession $filmSession;
     private string $filmName;
@@ -21,6 +25,7 @@ class Ticket
         $this->dateFilmSession = $filmSession->getDateFilmSession();
         $this->timeStartFilmSession = $filmSession->getTimeStartFilmSession();
         $this->timeEndFilmSession = $filmSession->getTimeEndFilmSession();
+        $this->id = Uuid::uuid4();
     }
 
     /**
