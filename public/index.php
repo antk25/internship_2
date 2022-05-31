@@ -8,6 +8,7 @@ use App\Domain\Booking\Entity\ValueObject\ClientName;
 use App\Domain\Booking\Entity\ValueObject\ClientPhone;
 use App\Domain\Booking\Entity\ValueObject\DateFilmSession;
 use App\Domain\Booking\Entity\ValueObject\TimeStartFilmSession;
+use App\Domain\Booking\Service\FilmSessionService;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -34,17 +35,9 @@ $dtoFilmSession = new FilmSessionDto();
 
 $dtoFilmSession1 = $dtoFilmSession::createFromArray($filmSession1);
 
-try {
-        $filmSession1 = new FilmSession(
-            $dtoFilmSession1->filmName,
-            $dtoFilmSession1->filmLength,
-            new DateFilmSession($dtoFilmSession1->dateFilmSession),
-            new TimeStartFilmSession($dtoFilmSession1->startTimeFilmSession),
-            $dtoFilmSession1->ticketsCount
-        );
-} catch (Exception $e) {
-    echo $e->getMessage(), "\n";
-}
+$filmSessionService = new FilmSessionService();
+
+$filmSession1 = $filmSessionService->createFilmSession($dtoFilmSession1);
 
 $dtoUser1 = $dto::createFromArray($user1);
 
