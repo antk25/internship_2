@@ -11,20 +11,17 @@ class FilmSessionService
 {
     private FilmSessionDto $filmSessionDto;
 
+    /**
+     * @throws \Exception
+     */
     public function createFilmSession(FilmSessionDto $filmSessionDto): FilmSession
     {
-        try {
-            $filmSession = new FilmSession(
-                $filmSessionDto->filmName,
-                $filmSessionDto->filmLength,
-                new DateFilmSession($filmSessionDto->dateFilmSession),
-                new TimeStartFilmSession($filmSessionDto->startTimeFilmSession),
-                $filmSessionDto->ticketsCount
-            );
-        } catch (\Exception $e) {
-            echo $e->getMessage(), "\n";
-        } finally {
-            return $filmSession;
-        }
+        return new FilmSession(
+            $filmSessionDto->filmName,
+            $filmSessionDto->filmLength,
+            new DateFilmSession($filmSessionDto->dateFilmSession),
+            new TimeStartFilmSession($filmSessionDto->startTimeFilmSession),
+            $filmSessionDto->ticketsCount,
+        );
     }
 }

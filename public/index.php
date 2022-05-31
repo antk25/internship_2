@@ -9,6 +9,7 @@ use App\Domain\Booking\Entity\ValueObject\ClientPhone;
 use App\Domain\Booking\Entity\ValueObject\DateFilmSession;
 use App\Domain\Booking\Entity\ValueObject\TimeStartFilmSession;
 use App\Domain\Booking\Service\FilmSessionService;
+use App\Domain\Booking\Service\TicketService;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -37,27 +38,30 @@ $dtoFilmSession1 = $dtoFilmSession::createFromArray($filmSession1);
 
 $filmSessionService = new FilmSessionService();
 
-$filmSession1 = $filmSessionService->createFilmSession($dtoFilmSession1);
+try {
+    $filmSession1 = $filmSessionService->createFilmSession($dtoFilmSession1);
+} catch (Exception $e) {
+    echo $e->getMessage(), "\n";
+}
 
 $dtoUser1 = $dto::createFromArray($user1);
 
 $dtoUser2 = $dto::createFromArray($user2);
 
+$ticketService = new TicketService();
+
 try {
-    $client1 = new Client(new ClientName($dtoUser1->name), new ClientPhone($dtoUser1->phone));
-    $client2 = new Client(new ClientName($dtoUser2->name), new ClientPhone($dtoUser2->phone));
+    $ticketService->createTicket($filmSession1, $dtoUser1);
 } catch (Exception $e) {
     echo $e->getMessage(), "\n";
 }
 
 try {
-    $filmSession1->bookTicket($client1);
-    $filmSession1->bookTicket($client2);
+    $ticketService->createTicket($filmSession1, $dtoUser2);
 } catch (Exception $e) {
     echo $e->getMessage(), "\n";
 }
 
 $tickets = $filmSession1->getAllBookedTickets();
-$aboutSession = $filmSession1->getInfoAboutFilmSession();
 
 print_r($tickets);
