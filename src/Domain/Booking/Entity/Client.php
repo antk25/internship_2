@@ -12,7 +12,7 @@ class Client
     /**
      * @throws \Exception
      */
-    public function __construct(private ClientName $name, private ClientPhone $phone)
+    public function __construct(private readonly ClientName $name, private readonly ClientPhone $phone)
     {
         $this->id = uniqid();
     }

@@ -23,7 +23,7 @@ class FilmSession extends Film
     ) {
         parent::__construct($filmName, $filmLength);
 
-        $this->timeEndFilmSession = $this->calcEndSessionTime();
+        $this->timeEndFilmSession = $this->calcTimeEndFilmSession();
         $this->ticketsCollection = new TicketsCollection();
     }
 
@@ -64,8 +64,8 @@ class FilmSession extends Film
             'Фильм' => $this->getFilmName(),
             'Продолжительность' => $this->getFilmLength(),
             'Дата' => $this->getDateFilmSession(),
-            'Время начала сеанса' => $this->getTimeSessionStart(),
-            'Время окончания сеанса' => $this->getTimeSessionEnd(),
+            'Время начала сеанса' => $this->getTimeStartFilmSession(),
+            'Время окончания сеанса' => $this->getTimeEndFilmSession(),
             'Кол-во свободных мест' => $this->ticketsCount,
         ];
     }
@@ -93,11 +93,11 @@ class FilmSession extends Film
     /**
      * @throws \Exception
      */
-    private function calcEndSessionTime(): string
+    private function calcTimeEndFilmSession(): string
     {
-        $startTime = \DateTime::createFromFormat('H:i', $this->timeStartFilmSession);
+        $startSessionTime = \DateTime::createFromFormat('H:i', $this->timeStartFilmSession);
 
-        $endSessionTime = $startTime->add(new \DateInterval('PT' . $this->getFilmLength() . 'M'));
+        $endSessionTime = $startSessionTime->add(new \DateInterval('PT' . $this->getFilmLength() . 'M'));
 
         return $endSessionTime->format('H:i');
     }
