@@ -5,6 +5,7 @@ namespace App\Domain\Booking\Service;
 use App\Domain\Booking\Entity\FilmSession;
 use App\Domain\Booking\Entity\TransferObject\NewClientDto;
 use App\Domain\Booking\Entity\ValueObject\Client;
+use Ramsey\Uuid\Uuid;
 
 class TicketService
 {
@@ -15,6 +16,6 @@ class TicketService
     {
         $client = new Client($newClientDto->name, $newClientDto->phone);
 
-        $filmSession->bookTicket($client);
+        $filmSession->bookTicket(Uuid::uuid4(), $client);
     }
 }

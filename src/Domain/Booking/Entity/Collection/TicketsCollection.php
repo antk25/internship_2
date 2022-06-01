@@ -5,6 +5,7 @@ namespace App\Domain\Booking\Entity\Collection;
 use App\Domain\Booking\Entity\FilmSession;
 use App\Domain\Booking\Entity\Ticket;
 use App\Domain\Booking\Entity\ValueObject\Client;
+use Ramsey\Uuid\UuidInterface;
 
 class TicketsCollection implements \Iterator
 {
@@ -18,9 +19,9 @@ class TicketsCollection implements \Iterator
         $this->position = 0;
     }
 
-    public function addBookTicket(Client $client, FilmSession $filmSession): void
+    public function addBookTicket(UuidInterface $id, Client $client, FilmSession $filmSession): void
     {
-        $this->tickets[] = new Ticket($client, $filmSession);
+        $this->tickets[] = new Ticket($id, $client, $filmSession);
     }
 
     public function current(): Ticket

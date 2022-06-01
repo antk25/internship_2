@@ -5,38 +5,37 @@ namespace App\Domain\Booking\Entity;
 use App\Domain\Booking\Entity\Collection\TicketsCollection;
 use App\Domain\Booking\Entity\ValueObject\Client;
 use App\Domain\Booking\Entity\ValueObject\DateTimeStartFilmSession;
-use Ramsey\Uuid\Uuid;
+use App\Domain\Booking\Entity\ValueObject\Film;
 use Ramsey\Uuid\UuidInterface;
 
 class FilmSession
 {
     private \DateTimeImmutable $timeEndFilmSession;
     private TicketsCollection $ticketsCollection;
-    private UuidInterface $id;
 
     /**
      * @throws \Exception
      */
     public function __construct(
+        private readonly UuidInterface $id,
         private readonly Film $film,
         private readonly DateTimeStartFilmSession $dateTimeStartFilmSession,
         private int $ticketsCount,
     ) {
         $this->timeEndFilmSession = $this->calcTimeEndFilmSession();
         $this->ticketsCollection = new TicketsCollection();
-        $this->id = Uuid::uuid4();
     }
 
     /**
      * @throws \Exception
      */
-    public function bookTicket(Client $client): void
+    public function bookTicket(UuidInterface $id, Client $client): void
     {
         if ($this->checkTicketsAvail()) {
             throw new \Exception('No more tickets');
         }
 
-        $this->ticketsCollection->addBookTicket($client, $this);
+        $this->ticketsCollection->addBookTicket($id, $client, $this);
 
         $this->ticketsCount--;
     }

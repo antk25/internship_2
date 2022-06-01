@@ -3,21 +3,18 @@
 namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\ValueObject\Client;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class Ticket
 {
-    private UuidInterface $id;
-
-    public function __construct(private readonly Client $client, private readonly FilmSession $filmSession)
+    public function __construct(private readonly UuidInterface $id, private readonly Client $client, private readonly FilmSession $filmSession)
     {
-        $this->id = Uuid::uuid4();
     }
 
     /**
-     * @return array<mixed>
      * @throws \Exception
+     *
+     * @return array<mixed>
      */
     public function getTicketInfo(): array
     {
