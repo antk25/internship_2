@@ -12,8 +12,10 @@ class Client
      */
     public function __construct(string $name, string $phone)
     {
-        $this->name = self::validateName($name);
-        $this->phone = self::assertThatPhoneIsValid($phone);
+        self::assertThatNameIsValid($name);
+        self::assertThatPhoneIsValid($phone);
+        $this->name = $name;
+        $this->phone = $phone;
     }
 
     public function getName(): string
@@ -29,24 +31,20 @@ class Client
     /**
      * @throws \Exception
      */
-    private static function validateName(string $name): string
+    private static function assertThatNameIsValid(string $name): void
     {
         if (!preg_match('/[A-zА-я-]{3,15}$/m', $name)) {
             throw new \Exception('Invalid name');
         }
-
-        return $name;
     }
 
     /**
      * @throws \Exception
      */
-    private static function assertThatPhoneIsValid(string $phone): string
+    private static function assertThatPhoneIsValid(string $phone): void
     {
         if (!preg_match('/\+?[78][-(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/m', $phone)) {
             throw new \Exception('Invalid phone format');
         }
-
-        return $phone;
     }
 }
