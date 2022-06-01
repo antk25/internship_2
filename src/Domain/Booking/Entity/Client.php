@@ -14,13 +14,13 @@ class Client
     {
     }
 
-    public function getName(): ClientName
+    public function getName(): string
     {
-        return $this->name;
+        return $this->name->getValue();
     }
 
-    public function getPhone(): ClientPhone
+    public function getPhone(): string
     {
-        return $this->phone;
+        return $this->phone->getValue();
     }
 }

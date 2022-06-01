@@ -9,7 +9,7 @@ class DateFilmSession
     /**
      * @throws \Exception
      */
-    public function __construct(mixed $date)
+    public function __construct(string $date)
     {
         $this->date = $this->setDate($date);
     }

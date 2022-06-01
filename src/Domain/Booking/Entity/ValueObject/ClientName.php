@@ -27,7 +27,7 @@ class ClientName
     /**
      * @throws \Exception
      */
-    private function validateName(mixed $name): mixed
+    private function validateName(string $name): string
     {
         if (!preg_match('/[A-zА-я-]{3,15}$/m', $name)) {
             throw new \Exception('Invalid name');
