@@ -6,7 +6,7 @@ use App\Domain\Booking\Entity\Collection\TicketsCollection;
 use App\Domain\Booking\Entity\ValueObject\DateFilmSession;
 use App\Domain\Booking\Entity\ValueObject\TimeStartFilmSession;
 
-class FilmSession extends Film
+class FilmSession
 {
     private string $timeEndFilmSession;
     private TicketsCollection $ticketsCollection;
@@ -16,14 +16,11 @@ class FilmSession extends Film
      * @throws \Exception
      */
     public function __construct(
-        string $filmName,
-        int $filmLength,
+        private readonly Film $film,
         private readonly DateFilmSession $dateFilmSession,
         private readonly TimeStartFilmSession $timeStartFilmSession,
         private int $ticketsCount,
     ) {
-        parent::__construct($filmName, $filmLength);
-
         $this->timeEndFilmSession = $this->calcTimeEndFilmSession();
         $this->ticketsCollection = new TicketsCollection();
         $this->id = uniqid();
@@ -63,13 +60,18 @@ class FilmSession extends Film
     public function getInfoAboutFilmSession(): array
     {
         return [
-            'Фильм' => $this->getFilmName(),
-            'Продолжительность' => $this->getFilmLength(),
+            'Фильм' => $this->film->getFilmName(),
+            'Продолжительность' => $this->getFilmNameCurrentFilmSession(),
             'Дата' => $this->getDateFilmSession(),
             'Время начала сеанса' => $this->getTimeStartFilmSession(),
             'Время окончания сеанса' => $this->getTimeEndFilmSession(),
             'Кол-во свободных мест' => $this->ticketsCount,
         ];
+    }
+
+    public function getFilmNameCurrentFilmSession(): string
+    {
+        return $this->film->getFilmName();
     }
 
     public function getDateFilmSession(): DateFilmSession
@@ -104,7 +106,7 @@ class FilmSession extends Film
     {
         $startSessionTime = \DateTime::createFromFormat('H:i', $this->timeStartFilmSession);
 
-        $endSessionTime = $startSessionTime->add(new \DateInterval('PT' . $this->getFilmLength() . 'M'));
+        $endSessionTime = $startSessionTime->add(new \DateInterval('PT' . $this->film->getFilmLength() . 'M'));
 
         return $endSessionTime->format('H:i');
     }

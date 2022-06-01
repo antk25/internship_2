@@ -57,4 +57,6 @@ try {
 
 $tickets = $filmSession1->getAllBookedTickets();
 
-print_r($tickets);
+$aboutCurrentFilmSession = $filmSession1->getInfoAboutFilmSession();
+
+print_r($aboutCurrentFilmSession);

@@ -2,7 +2,7 @@
 
 namespace App\Domain\Booking\Entity;
 
-abstract class Film
+class Film
 {
     public function __construct(private readonly string $filmName, private readonly int $filmLength)
     {
@@ -13,7 +13,7 @@ abstract class Film
         return $this->filmName;
     }
 
-    protected function getFilmLength(): int
+    public function getFilmLength(): int
     {
         return $this->filmLength;
     }

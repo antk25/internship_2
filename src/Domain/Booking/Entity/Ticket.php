@@ -22,7 +22,7 @@ class Ticket
         return [
             'Имя' => $this->client->getName(),
             'Телефон' => $this->client->getPhone(),
-            'Фильм' => $this->filmSession->getFilmName(),
+            'Фильм' => $this->filmSession->getFilmNameCurrentFilmSession(),
             'Дата' => $this->filmSession->getDateFilmSession(),
             'Время начала сеанса' => $this->filmSession->getTimeStartFilmSession(),
             'Время окончания сеанса' => $this->filmSession->getTimeEndFilmSession(),
