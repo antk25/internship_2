@@ -5,12 +5,14 @@ namespace App\Domain\Booking\Entity;
 use App\Domain\Booking\Entity\Collection\TicketsCollection;
 use App\Domain\Booking\Entity\ValueObject\DateFilmSession;
 use App\Domain\Booking\Entity\ValueObject\TimeStartFilmSession;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class FilmSession
 {
     private string $timeEndFilmSession;
     private TicketsCollection $ticketsCollection;
-    private string $id;
+    private UuidInterface $id;
 
     /**
      * @throws \Exception
@@ -23,7 +25,7 @@ class FilmSession
     ) {
         $this->timeEndFilmSession = $this->calcTimeEndFilmSession();
         $this->ticketsCollection = new TicketsCollection();
-        $this->id = uniqid();
+        $this->id = Uuid::uuid4();
     }
 
     /**
@@ -87,11 +89,6 @@ class FilmSession
     public function getTimeEndFilmSession(): string
     {
         return $this->timeEndFilmSession;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 
     private function checkTicketsAvail(): bool
