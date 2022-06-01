@@ -6,6 +6,7 @@ use App\Domain\Booking\Entity\Collection\TicketsCollection;
 use App\Domain\Booking\Entity\ValueObject\Client;
 use App\Domain\Booking\Entity\ValueObject\DateTimeStartFilmSession;
 use App\Domain\Booking\Entity\ValueObject\Film;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class FilmSession
@@ -29,13 +30,17 @@ class FilmSession
     /**
      * @throws \Exception
      */
-    public function bookTicket(UuidInterface $id, Client $client): void
+    public function bookTicket(Client $client): void
     {
         if ($this->checkTicketsAvail()) {
             throw new \Exception('No more tickets');
         }
 
-        $this->ticketsCollection->addBookTicket($id, $client, $this);
+        $ticketId = Uuid::uuid4();
+
+        $ticket = new Ticket($ticketId, $client, $this);
+
+        $this->ticketsCollection->addBookTicket($ticket);
 
         $this->ticketsCount--;
     }

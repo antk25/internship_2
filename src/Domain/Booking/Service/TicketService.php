@@ -16,6 +16,6 @@ class TicketService
     {
         $client = new Client($newClientDto->name, $newClientDto->phone);
 
-        $filmSession->bookTicket(Uuid::uuid4(), $client);
+        $filmSession->bookTicket($client);
     }
 }
