@@ -4,8 +4,14 @@ namespace App\Domain\Booking\Entity\ValueObject;
 
 class Film
 {
-    public function __construct(private readonly string $filmName, private readonly int $filmLength)
+    private mixed $filmLength;
+
+    /**
+     * @throws \Exception
+     */
+    public function __construct(private readonly string $filmName, int $filmLength)
     {
+        $this->filmLength = self::filmLengthInDateInterval($filmLength);
     }
 
     public function getFilmName(): string
@@ -13,8 +19,18 @@ class Film
         return $this->filmName;
     }
 
-    public function getFilmLength(): int
+    public function getFilmLength(): \DateInterval
     {
         return $this->filmLength;
+    }
+
+    /**
+     * @param mixed $filmLength
+     *
+     * @throws \Exception
+     */
+    private static function filmLengthInDateInterval(int $filmLength): \DateInterval
+    {
+        return new \DateInterval('PT' . $filmLength . 'M');
     }
 }

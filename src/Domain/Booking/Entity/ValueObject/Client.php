@@ -4,18 +4,13 @@ namespace App\Domain\Booking\Entity\ValueObject;
 
 class Client
 {
-    private string $name;
-    private string $phone;
-
     /**
      * @throws \Exception
      */
-    public function __construct(string $name, string $phone)
+    public function __construct(private readonly string $name, private readonly string $phone)
     {
         self::assertThatNameIsValid($name);
         self::assertThatPhoneIsValid($phone);
-        $this->name = $name;
-        $this->phone = $phone;
     }
 
     public function getName(): string

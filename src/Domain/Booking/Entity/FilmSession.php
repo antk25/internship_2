@@ -100,6 +100,6 @@ class FilmSession
     {
         $timeStart = $this->dateTimeStartFilmSession->getValue();
 
-        return $timeStart->add(new \DateInterval('PT' . $this->film->getFilmLength() . 'M'));
+        return $timeStart->add($this->film->getFilmLength());
     }
 }
