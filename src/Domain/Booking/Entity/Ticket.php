@@ -17,13 +17,14 @@ class Ticket
 
     /**
      * @return array<mixed>
+     * @throws \Exception
      */
     public function getTicketInfo(): array
     {
         return [
             'Имя' => $this->client->getName(),
             'Телефон' => $this->client->getPhone(),
-            'Фильм' => $this->filmSession->getFilmNameCurrentFilmSession(),
+            'Фильм' => $this->filmSession->getFilmName(),
             'Дата и время начала сеанса' => $this->filmSession->getDateTimeStartFilmSession(),
             'Время окончания сеанса' => $this->filmSession->getTimeEndFilmSession(),
         ];

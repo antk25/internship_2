@@ -64,14 +64,14 @@ class FilmSession
     {
         return [
             'Фильм' => $this->film->getFilmName(),
-            'Продолжительность' => $this->getFilmNameCurrentFilmSession(),
+            'Продолжительность' => $this->film->getFilmLength(),
             'Дата и время начала сеанса' => $this->getDateTimeStartFilmSession(),
             'Время окончания сеанса' => $this->getTimeEndFilmSession(),
             'Кол-во свободных мест' => $this->ticketsCount,
         ];
     }
 
-    public function getFilmNameCurrentFilmSession(): string
+    public function getFilmName(): string
     {
         return $this->film->getFilmName();
     }
