@@ -2,26 +2,40 @@
 
 namespace App\Domain\Booking\Entity\ValueObject;
 
-class ClientPhone
+class Client
 {
+    private string $name;
     private string $phone;
 
     /**
      * @throws \Exception
      */
-    public function __construct(string $phone)
+    public function __construct(string $name, string $phone)
     {
+        $this->name = self::validateName($name);
         $this->phone = self::assertThatPhoneIsValid($phone);
     }
 
-    public function getValue(): string
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getPhone(): string
     {
         return $this->phone;
     }
 
-    public function __toString(): string
+    /**
+     * @throws \Exception
+     */
+    private static function validateName(string $name): string
     {
-        return $this->getValue();
+        if (!preg_match('/[A-zА-я-]{3,15}$/m', $name)) {
+            throw new \Exception('Invalid name');
+        }
+
+        return $name;
     }
 
     /**

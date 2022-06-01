@@ -6,7 +6,6 @@ class FilmSessionDto
 {
     public string $filmName;
     public string $filmLength;
-    public string $dateFilmSession;
-    public string $startTimeFilmSession;
+    public string $dateTimeStartFilmSession;
     public int $ticketsCount;
 }

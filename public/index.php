@@ -20,8 +20,7 @@ $user2 = [
 $filmSession1 = [
     'film' => 'Venom',
     'filmLength' => 109,
-    'date' => '22.05.2022',
-    'time' => '20:15',
+    'dateTimeStart' => '22.05.2022 20:15',
     'numberOfSeats' => 10,
 ];
 
@@ -59,4 +58,4 @@ $tickets = $filmSession1->getAllBookedTickets();
 
 $aboutCurrentFilmSession = $filmSession1->getInfoAboutFilmSession();
 
-print_r($aboutCurrentFilmSession);
+print_r($tickets);

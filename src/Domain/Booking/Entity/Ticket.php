@@ -2,6 +2,7 @@
 
 namespace App\Domain\Booking\Entity;
 
+use App\Domain\Booking\Entity\ValueObject\Client;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -23,8 +24,7 @@ class Ticket
             'Имя' => $this->client->getName(),
             'Телефон' => $this->client->getPhone(),
             'Фильм' => $this->filmSession->getFilmNameCurrentFilmSession(),
-            'Дата' => $this->filmSession->getDateFilmSession(),
-            'Время начала сеанса' => $this->filmSession->getTimeStartFilmSession(),
+            'Дата и время начала сеанса' => $this->filmSession->getDateTimeStartFilmSession(),
             'Время окончания сеанса' => $this->filmSession->getTimeEndFilmSession(),
         ];
     }

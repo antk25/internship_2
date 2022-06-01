@@ -2,9 +2,9 @@
 
 namespace App\Domain\Booking\Entity\Collection;
 
-use App\Domain\Booking\Entity\Client;
 use App\Domain\Booking\Entity\FilmSession;
 use App\Domain\Booking\Entity\Ticket;
+use App\Domain\Booking\Entity\ValueObject\Client;
 
 class TicketsCollection implements \Iterator
 {

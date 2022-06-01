@@ -3,14 +3,14 @@
 namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\Collection\TicketsCollection;
-use App\Domain\Booking\Entity\ValueObject\DateFilmSession;
-use App\Domain\Booking\Entity\ValueObject\TimeStartFilmSession;
+use App\Domain\Booking\Entity\ValueObject\Client;
+use App\Domain\Booking\Entity\ValueObject\DateTimeStartFilmSession;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class FilmSession
 {
-    private string $timeEndFilmSession;
+    private \DateTimeImmutable $timeEndFilmSession;
     private TicketsCollection $ticketsCollection;
     private UuidInterface $id;
 
@@ -19,8 +19,7 @@ class FilmSession
      */
     public function __construct(
         private readonly Film $film,
-        private readonly DateFilmSession $dateFilmSession,
-        private readonly TimeStartFilmSession $timeStartFilmSession,
+        private readonly DateTimeStartFilmSession $dateTimeStartFilmSession,
         private int $ticketsCount,
     ) {
         $this->timeEndFilmSession = $this->calcTimeEndFilmSession();
@@ -57,6 +56,8 @@ class FilmSession
     }
 
     /**
+     * @throws \Exception
+     *
      * @return array<mixed>
      */
     public function getInfoAboutFilmSession(): array
@@ -64,8 +65,7 @@ class FilmSession
         return [
             'Фильм' => $this->film->getFilmName(),
             'Продолжительность' => $this->getFilmNameCurrentFilmSession(),
-            'Дата' => $this->getDateFilmSession(),
-            'Время начала сеанса' => $this->getTimeStartFilmSession(),
+            'Дата и время начала сеанса' => $this->getDateTimeStartFilmSession(),
             'Время окончания сеанса' => $this->getTimeEndFilmSession(),
             'Кол-во свободных мест' => $this->ticketsCount,
         ];
@@ -76,17 +76,15 @@ class FilmSession
         return $this->film->getFilmName();
     }
 
-    public function getDateFilmSession(): DateFilmSession
+    /**
+     * @throws \Exception
+     */
+    public function getDateTimeStartFilmSession(): \DateTimeImmutable
     {
-        return $this->dateFilmSession;
+        return $this->dateTimeStartFilmSession->getValue();
     }
 
-    public function getTimeStartFilmSession(): TimeStartFilmSession
-    {
-        return $this->timeStartFilmSession;
-    }
-
-    public function getTimeEndFilmSession(): string
+    public function getTimeEndFilmSession(): \DateTimeImmutable
     {
         return $this->timeEndFilmSession;
     }
@@ -99,12 +97,10 @@ class FilmSession
     /**
      * @throws \Exception
      */
-    private function calcTimeEndFilmSession(): string
+    private function calcTimeEndFilmSession(): \DateTimeImmutable
     {
-        $startSessionTime = \DateTime::createFromFormat('H:i', $this->timeStartFilmSession);
+        $timeStart = $this->dateTimeStartFilmSession->getValue();
 
-        $endSessionTime = $startSessionTime->add(new \DateInterval('PT' . $this->film->getFilmLength() . 'M'));
-
-        return $endSessionTime->format('H:i');
+        return $timeStart->add(new \DateInterval('PT' . $this->film->getFilmLength() . 'M'));
     }
 }

@@ -15,8 +15,7 @@ class CreateFilmSessionDtoFactory
 
         $dto->filmName = $data['film'];
         $dto->filmLength = $data['filmLength'];
-        $dto->dateFilmSession = $data['date'];
-        $dto->startTimeFilmSession = $data['time'];
+        $dto->dateTimeStartFilmSession = $data['dateTimeStart'];
         $dto->ticketsCount = $data['numberOfSeats'];
 
         return $dto;
